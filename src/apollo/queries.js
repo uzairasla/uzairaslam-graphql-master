@@ -23,3 +23,13 @@ export const multipleDataQuery = gql`
     }
   }
 `;
+export const lastMeasurementQuery = gql`
+  query($metricName: String!) {
+    getLastKnownMeasurement(metricName: $metricName) {
+      at
+      metric
+      value
+      unit
+    }
+  }
+`;
