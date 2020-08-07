@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from 'redux-starter-kit';
 
-export type WeatherForLocation = {
-  description: string;
-  locationName: string;
-  temperatureinCelsius: number;
+export const WeatherForLocation = {
+  description,
+  locationName,
+  temperatureinCelsius,
 };
 
-export type ApiErrorAction = {
-  error: string;
+export const ApiErrorAction = {
+  error,
 };
 
 const initialState = {
@@ -17,20 +17,20 @@ const initialState = {
   locationName: '',
 };
 
-const toF = (c: number) => (c * 9) / 5 + 32;
+const toF = c => (c * 9) / 5 + 32;
 
 const slice = createSlice({
   name: 'weather',
   initialState,
   reducers: {
-    weatherDataRecevied: (state, action: PayloadAction<WeatherForLocation>) => {
+    weatherDataRecevied: (state, action) => {
       const { description, locationName, temperatureinCelsius } = action.payload;
       state.temperatureinCelsius = temperatureinCelsius;
       state.temperatureinFahrenheit = toF(temperatureinCelsius);
       state.description = description;
       state.locationName = locationName;
     },
-    weatherApiErrorReceived: (state, action: PayloadAction<ApiErrorAction>) => state,
+    weatherApiErrorReceived: (state, action) => state,
   },
 });
 
