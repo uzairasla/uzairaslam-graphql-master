@@ -6,7 +6,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
-
+import client from './apollo';
+import { ApolloProvider } from '@apollo/client';
 const store = createStore();
 const theme = createMuiTheme({
   palette: {
@@ -23,14 +24,16 @@ const theme = createMuiTheme({
 });
 
 const App = () => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <Provider store={store}>
-      <Wrapper>
-        <Header />
-      </Wrapper>
-    </Provider>
-  </MuiThemeProvider>
+  <ApolloProvider client={client}>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <Wrapper>
+          <Header />
+        </Wrapper>
+      </Provider>
+    </MuiThemeProvider>
+  </ApolloProvider>
 );
 
 export default App;

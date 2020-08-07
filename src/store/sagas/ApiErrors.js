@@ -6,6 +6,7 @@ function* apiErrorReceived(action) {
   yield call(toast.error, `Error Received: ${action.payload.error}`);
 }
 
-export default function* watchApiError() {
+function* watchApiError() {
   yield takeEvery(WeatherActions.weatherApiErrorReceived.type, apiErrorReceived);
 }
+export default [watchApiError];
