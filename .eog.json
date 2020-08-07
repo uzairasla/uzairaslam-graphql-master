@@ -1,0 +1,6 @@
+{
+  "version": 2.1,
+  "name": "$USERNAME",
+  "dateCreated": "$DATECREATED",
+  "token": "$TOKEN"
+}
