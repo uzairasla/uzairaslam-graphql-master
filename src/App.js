@@ -6,9 +6,16 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
-import client from './apollo';
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import SelectMetric from './components/SelectMetric';
+import MetricsListed from './components/MetricsListed';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import GraphRendering from './components/GraphRendering.js';
+
+const client = new ApolloClient({
+  uri: 'https://react.eogresources.com/graphql',
+  cache: new InMemoryCache(),
+});
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -32,7 +39,17 @@ const App = () => (
       <Provider store={store}>
         <Wrapper>
           <Header />
-          <SelectMetric />
+          <div className="container">
+            <div className="mt-5 d-flex justify-content-center">
+              <SelectMetric />
+            </div>
+            <div className="d-flex justify-content-center">
+              <MetricsListed />
+            </div>
+            <div className="mt-5 mb-5 d-flex justify-content-center">
+              <GraphRendering />
+            </div>
+          </div>
         </Wrapper>
       </Provider>
     </MuiThemeProvider>
