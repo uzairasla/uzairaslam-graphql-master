@@ -1,11 +1,8 @@
 import React from 'react';
 import Metrics from './Metrics';
 import { useSelector } from 'react-redux';
-import { Provider, createClient } from 'urql';
-
-const client = createClient({
-  url: 'https://react.eogresources.com/graphql',
-});
+import { Provider } from 'urql';
+import { client } from '../apollo/queries';
 
 const getSelectedMetrics = state => {
   const { metric } = state;

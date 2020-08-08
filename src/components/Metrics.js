@@ -1,20 +1,10 @@
 import React from 'react';
 import MetricsCard from './MetricsCard';
-import { useQuery, gql } from '@apollo/client';
-
-const query = gql`
-  query($metricName: String!) {
-    getLastKnownMeasurement(metricName: $metricName) {
-      at
-      metric
-      value
-      unit
-    }
-  }
-`;
+import { useQuery } from '@apollo/client';
+import { lastKnowMeasurementQuery } from '../apollo/queries';
 
 function Metrics({ metricName }) {
-  const { loading, error, data } = useQuery(query, {
+  const { loading, error, data } = useQuery(lastKnowMeasurementQuery, {
     variables: { metricName },
     pollInterval: 1300,
   });

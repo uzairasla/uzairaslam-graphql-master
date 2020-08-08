@@ -1,35 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Provider, createClient } from 'urql';
-import { useQuery, gql } from '@apollo/client';
+import { Provider } from 'urql';
+import { useQuery } from '@apollo/client';
 import * as actions from '../store/actions';
 import Chart from 'react-apexcharts';
+import { client, heartBeatQuery, dataQuery } from '../apollo/queries';
 
-const WITHIN_TIMESTAMP = 30; // within 30 mins
-
-const client = createClient({
-  url: 'https://react.eogresources.com/graphql',
-});
-
-const heartBeatQuery = gql`
-  {
-    heartBeat
-  }
-`;
-
-const dataQuery = gql`
-  query($input: [MeasurementQuery!]!) {
-    getMultipleMeasurements(input: $input) {
-      metric
-      measurements {
-        at
-        metric
-        value
-        unit
-      }
-    }
-  }
-`;
+const timestamp_history = 30; // within 30 mins
 
 const getSelectedMetrics = state => {
   const { metric } = state;
@@ -60,10 +37,10 @@ const GraphingData = () => {
   var input = [];
   input = selected_metrics.map(metricName => ({
     metricName: metricName,
-    after: new Date(heartBeatData.heartBeat - WITHIN_TIMESTAMP * 60000).getTime(),
+    after: new Date(heartBeatData.heartBeat - timestamp_history * 60000).getTime(),
   }));
 
-  const { loading, error, data } = useQuery(dataQuery, {
+  const { error, data } = useQuery(dataQuery, {
     variables: { input },
     pollInterval: 1300,
   });

@@ -6,16 +6,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import SelectMetric from './components/SelectMetric';
 import MetricsListed from './components/MetricsListed';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GraphRendering from './components/GraphRendering.js';
-
-const client = new ApolloClient({
-  uri: 'https://react.eogresources.com/graphql',
-  cache: new InMemoryCache(),
-});
+import { clientApollo } from './apollo/queries';
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -33,7 +29,7 @@ const theme = createMuiTheme({
 });
 
 const App = () => (
-  <ApolloProvider client={client}>
+  <ApolloProvider client={clientApollo}>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Provider store={store}>

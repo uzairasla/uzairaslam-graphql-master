@@ -11,17 +11,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { useDispatch } from 'react-redux';
 import * as actions from '../store/actions';
-import { Provider, createClient, useQuery } from 'urql';
-
-const client = createClient({
-  url: 'https://react.eogresources.com/graphql',
-});
-
-const query = `
-  {
-    getMetrics
-  }
-`;
+import { Provider, useQuery } from 'urql';
+import { client, query } from '../apollo/queries';
 
 const useStyles = makeStyles(theme => ({
   root: {
