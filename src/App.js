@@ -8,6 +8,8 @@ import Header from './components/Header';
 import Wrapper from './components/Wrapper';
 import client from './apollo';
 import { ApolloProvider } from '@apollo/client';
+import SelectMetric from './components/SelectMetric';
+
 const store = createStore();
 const theme = createMuiTheme({
   palette: {
@@ -30,6 +32,7 @@ const App = () => (
       <Provider store={store}>
         <Wrapper>
           <Header />
+          <SelectMetric />
         </Wrapper>
       </Provider>
     </MuiThemeProvider>
